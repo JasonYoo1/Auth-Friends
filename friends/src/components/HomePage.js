@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const HomePage = () => {
     return (
-        <div className="App-wrapper">
+        <div>
             <p> Hello World </p>
             <Link
                 to='/login'

@@ -1,9 +1,19 @@
-import { combineReducers } from 'redux';
+import { LOGIN_START, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE
+} from '../actions/index'
 
+const initialState = {
+  friends: [],
+  error: '',
+  errorStatusCode: null,
+  fetchingData: false,
+  isLoggingIn: false
+}
 
+const rootReducer = (state = initialState, action) => {
+  switch(action.type) {
+      default:
+          return state
+  }
+}
 
-import postReducer from './postReducer';
-
-export default combineReducers({
-  posts: postReducer
-});
+export default rootReducer 
