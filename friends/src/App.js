@@ -7,6 +7,7 @@ import store from '../src/store'
 import LogInForm from './components/Login'
 import FriendsList from './components/FriendsList';
 import PrivateRoute from './components/PrivateRoute';
+import AddFriend from './components/AddFriend';
 
 function App() {
   return (
@@ -15,10 +16,11 @@ function App() {
       <div className="App">
         <header className="App-header">
           <div>
-            <Link to='/login' >Login</Link>
+            <Link to='/login' >Login</Link><br/>
           </div>         
           <Route path='/login' component={LogInForm} />
           <PrivateRoute exact path="/friends" component={FriendsList} />
+          <PrivateRoute exact path="/friends" component={AddFriend} />
         </header>
       </div>
     </Router>

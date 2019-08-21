@@ -7,68 +7,66 @@ import { FETCH_START,
         NEW_SUCCESS,
         NEW_FAIL } from '../actions/index';
 
-import { axiosWithAuth } from '../Auth/axiosWithAuth';
-
-
 
 
 const initialState = {
-    friends: [],
-    dataError: '',
-    credentials: {
-        username: '', 
-        password: '',
-    },
-    credError: ''
-}
+    friends: [], 
+    token:localStorage.getItem('token'),
+    loginError: '',
+    addFriend: '',
+    getFriendError: '',
+  };
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_START:
         return {
             ...state,
-            dataError: ''
+            loginError: '',
         };
     case FETCH_SUCCESS:
         return {
             ...state,
-            friends: action.payload,
-            dataError: ''
+            loginError: '',
+            token: action.payload,
         };
     case FETCH_FAIL:
         return {
             ...state,
-            dataError: action.payload
+            loginError: action.payload,
         };
     case POST_LOGIN:
         return {
             ...state,
-            credError: ''
+            getFriendError: '',
         };
     case POST_SUCCESS:
         return {
             ...state,
-            credError: ''
+            getFriendError: '',
+            friends: action.payload,
         };
     case POST_FAIL:
         return {
             ...state,
-            credError: ''
+            getFriendError: action.payload,
+            friends: [],
         };
     case NEW_LOGIN:
         return {
             ...state,
-            credError: ''
+            addFriendsError: '',
         };
     case NEW_SUCCESS:
         return {
             ...state,
-            credError: ''
+            addFriendsError: '',
+            friends: [...state.friends, action.payload],
         };
     case NEW_FAIL:
         return {
             ...state,
-            credError: ''
+            addFriendsError: action.payload,
         };
       default:
           return state

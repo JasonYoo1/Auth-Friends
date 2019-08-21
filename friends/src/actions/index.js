@@ -15,44 +15,40 @@ export const NEW_LOGIN = 'NEW_LOGIN';
 export const NEW_SUCCESS = 'NEW_SUCCESS'
 export const NEW_FAIL = 'NEW_FAIL'
 
-export const login = () => dispatch => {
+export const login = (user) => dispatch => {
     dispatch({ type: FETCH_START });
-    axiosWithAuth()
-    .get('http://localhost:5000/api/friends')
+    axios.post('http://localhost:5000/api/login', user)
     .then(res => {
-        console.log("success start", res)
-        dispatch({ type: POST_SUCCESS, payload: res.data });
+        localStorage.setItem('token', res.data.payload);
+        dispatch({ type: POST_SUCCESS });
     })
     .catch(error => {
         dispatch({ type: FETCH_FAIL, payload: error.res });
     });
 }
 
-export const createPost = (credentials) => dispatch => {
-    dispatch({type: POST_LOGIN})
-    axios.post('http://localhost:5000/api/login', credentials)
-    .then(res=>{
-        console.log('token?', res)
-    })
-    .catch(error => {
-        // unsuccessful 
-        console.log("The api is currently down.", error.res);
-        dispatch({type: POST_FAIL, payload: error.res});
-    });
-}
+export const createPost = () => dispatch => {
+    dispatch({ type: POST_LOGIN });
+    axiosWithAuth()
+      .get('http://localhost:5000/api/friends')
+      .then(res => {
+        console.log("friend?", res.data)
+        dispatch({ type: POST_SUCCESS, payload: res.data });
+      })
+      .catch(err => {
+        dispatch({ type: POST_FAIL, payload: err.response });
+      });
+  };
 
-export const newFriend = (props) => (dispatch) => {
+export const newFriendData = (props) => (dispatch) => {
     dispatch({ type: NEW_LOGIN });
     axiosWithAuth()
-        .post('http://localhost:5000/api/friends', props)
+        .post('./friends', props)
         .then(res => {
-            // successful 
             console.log("pushed?", res);
             dispatch({ type: NEW_SUCCESS, payload: res });
         })
         .catch(error => {
-            // unsuccessful 
-            console.log("The api is currently down.", error.res);
             dispatch({ type: NEW_FAIL, payload: error.res });
         });
     };
