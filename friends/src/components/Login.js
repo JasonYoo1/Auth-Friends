@@ -5,12 +5,10 @@ import * as Yup from 'yup';
 
 import { createPost } from '../actions/index';
 
-const LoginForm = ({ props, touched, errors, values, status, handleSubmit}) => {
+const LoginForm = ({ props, touched, errors, values, handleSubmit}) => {
     const [userLogin, setUserLogin] = useState({});
     useEffect(() => {
-        if (status) {
             setUserLogin(user => ({...userLogin, user}))
-        }
     }, []); 
 
     return(

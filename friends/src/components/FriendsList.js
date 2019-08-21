@@ -2,13 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { getFriendsData } from '../actions/index.js';
+import { login } from '../actions/index.js';
 import Friend from './Friends';
 
 const FriendsList = props => {
   return (
-    <div >
-      <div>
+    <div className="friends-list-container">
+      <div className="friends-btn" onClick={props.login}>
+          <button className="friends-btn">Get Friends</button>
+      </div>
+      hello
+      <div className="friendscontainer">
         {props.friends && 
           props.friends.map(friend => <Friend key={friend.id} props={friend} />)}
       </div>
@@ -25,5 +29,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getFriendsData }
+  { login }
 )(FriendsList);

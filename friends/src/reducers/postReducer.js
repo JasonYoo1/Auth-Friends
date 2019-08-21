@@ -1,15 +1,24 @@
-import { FETCH_START, FETCH_SUCCESS, FETCH_FAIL,POST_LOGIN } from '../actions/index';
+import { FETCH_START, 
+        FETCH_SUCCESS, 
+        FETCH_FAIL, POST_LOGIN , 
+        POST_SUCCESS, 
+        POST_FAIL, 
+        NEW_LOGIN, 
+        NEW_SUCCESS,
+        NEW_FAIL } from '../actions/index';
+
+import { axiosWithAuth } from '../Auth/axiosWithAuth';
+
+
 
 
 const initialState = {
     friends: [],
-    dataIsLoading: false, 
     dataError: '',
     credentials: {
         username: '', 
         password: '',
     },
-    credIsLoading: false,
     credError: ''
 }
 
@@ -18,26 +27,47 @@ const reducer = (state = initialState, action) => {
     case FETCH_START:
         return {
             ...state,
-            dataIsLoading: true,
             dataError: ''
         };
     case FETCH_SUCCESS:
         return {
             ...state,
-            dataIsLoading: false,
             friends: action.payload,
             dataError: ''
         };
     case FETCH_FAIL:
         return {
             ...state,
-            dataIsLoading: false,
             dataError: action.payload
         };
     case POST_LOGIN:
         return {
             ...state,
-            credIsLoading: true,
+            credError: ''
+        };
+    case POST_SUCCESS:
+        return {
+            ...state,
+            credError: ''
+        };
+    case POST_FAIL:
+        return {
+            ...state,
+            credError: ''
+        };
+    case NEW_LOGIN:
+        return {
+            ...state,
+            credError: ''
+        };
+    case NEW_SUCCESS:
+        return {
+            ...state,
+            credError: ''
+        };
+    case NEW_FAIL:
+        return {
+            ...state,
             credError: ''
         };
       default:

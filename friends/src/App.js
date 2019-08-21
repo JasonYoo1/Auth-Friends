@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import store from '../src/store'
 import LogInForm from './components/Login'
-
+import FriendsList from './components/FriendsList';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Link to='/login' >Login</Link>
           </div>         
           <Route path='/login' component={LogInForm} />
+          <PrivateRoute exact path="/friends" component={FriendsList} />
         </header>
       </div>
     </Router>
