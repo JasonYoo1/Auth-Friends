@@ -43,7 +43,7 @@ export const createPost = () => dispatch => {
 export const newFriendData = (props) => (dispatch) => {
     dispatch({ type: NEW_LOGIN });
     axiosWithAuth()
-        .post('./friends', props)
+        .post('http://localhost:5000/api/friends', props)
         .then(res => {
             console.log("pushed?", res);
             dispatch({ type: NEW_SUCCESS, payload: res });

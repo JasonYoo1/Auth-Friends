@@ -3,33 +3,22 @@ import { Form, Field, withFormik } from 'formik';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
 
-import {createPost} from '../actions/index'
+import {newFriendData} from '../actions/index'
 
 const AddFriend = props => {
-    const [friend, setFriend]  = useState({name: ""});
+    const [newFriend, setNewFriend]  = useState({name: ""});
 
-    // useEffect(()=> {
-    //     setNewFriend(stranger => ({...newFriend, stranger}))
-    // },[])
-
-    const handleChanges = event => {
-        setFriend({ ...friend, [event.target.name]: event.target.value });
-      };
-      const handleSubmit = event => {
-        event.preventDefault();
-        props.addFriend(friend);
-        props.history.push('/friends')
-      };
+    useEffect(()=> {
+        setNewFriend(stranger => ({...newFriend, stranger}))
+    },[])
 
 
     return(
         <div>
-            <Form onSubmit={handleSubmit}>
+            <Form>
                 <Field
                     type="text" 
                     name="name" 
-                    value={friend.name}
-                    onChange={handleChanges}
                     placeholder="Name"
                     className="field"  />
             <button type="submit" className="button">Submit</button>
@@ -51,6 +40,12 @@ const FormikAddFriend = withFormik({
         .string()
         .required("Name Required"),
     }),
+
+    handleSubmit(values, { resetForm, props}) {
+        props.newFriendData(values);
+        resetForm(); 
+    }
+
 })(AddFriend);
   
 const mapStateToProps = state => {
@@ -59,4 +54,4 @@ const mapStateToProps = state => {
         };
     };
     
-export default connect(mapStateToProps,{ createPost })(FormikAddFriend);
+export default connect(mapStateToProps,{ newFriendData })(FormikAddFriend);
