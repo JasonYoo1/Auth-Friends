@@ -1,62 +1,65 @@
-import React, { Component } from 'react';
-import {Form, Field, Formik} from 'formik';
-
-
+import React, { useEffect, useState } from 'react';
+import { Form, Field, withFormik } from 'formik';
 import { connect } from 'react-redux';
-import { login } from '../actions/index';
+import * as Yup from 'yup';
 
+import { createPost } from '../actions/index';
 
-
-class Login extends Component {
-    state = {
-        credentials: {
-            username: '',
-            password: ''
+const LoginForm = ({ props, touched, errors, values, status, handleSubmit}) => {
+    const [userLogin, setUserLogin] = useState({});
+    useEffect(() => {
+        if (status) {
+            setUserLogin(user => ({...userLogin, user}))
         }
-    }
+    }, []); 
 
-    componentDidMount(){
-        this.props.login();
-    }
-
-    onChange = e => {
-        this.setState({
-            credentials: {
-                ...this.state.credentials,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
+    return(
+        <div className="form-container">
+            <h1>Sign In</h1>
+            <Form className="form">
+                {touched.name && errors.name && ( <p className="error">{errors.name}</p> )}
+                <Field 
+                    type="text" 
+                    name="username" 
+                    placeholder="Userame"/>
+                    {touched.name && errors.name && <p className="error">{errors.name}</p>}
+                <Field 
+                    type="text" 
+                    name="password" 
+                    placeholder="Password" />
+            <button type="submit" className="button">Submit</button>
+            </Form>
+        </div>
+    );
     
-        const post = {
-          name: this.props.name,
+};
+
+const FormikLoginForm = withFormik({
+    handleSubmit(values, { resetForm, props }) {
+        console.log('inputs on submit', values, props)
+        props.createPost(values);
+        resetForm(); 
+    },
+    mapPropsToValues({ username, password }) {
+        return {
+          username: username || "",
+          password: password || "",
         };
-        //action aka my fetch
-        this.props.createPost(post);
-      }
-
-    render() {
-        return (
-            <>
-            <Formik>
-                <Form onSubmit={this.onSubmit}>
-                    <Field type="text" name="username" value={this.props.username} onChange={this.handleChange}/>              
-                    <Field type="password" name="password" value={this.props.password} onChange={this.handleChange}/>
-                    <button type="submit">Submit</button>
-                </Form>  
-            </Formik>
-            </>
-        )
-    }
-}
-
-const mapStateToProps = state => ({
-    posts: state.posts.items,
-    //comes from reducer
-    newPost: state.posts.item
-  });
-
-  export default connect(mapStateToProps, { login })(Login);
+    },
+    validationSchema: Yup.object().shape({
+        username: Yup
+        .string()
+        .required("Username Required"),
+        password: Yup
+        .string()
+        .required("Password Required"),
+    }),
+})(LoginForm);
+  
+const mapStateToProps = state => {
+    return {
+        credentials: state.userLogin
+        };
+    };
+    
+export default connect( mapStateToProps,{ createPost })(FormikLoginForm);

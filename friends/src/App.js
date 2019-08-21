@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
 import store from '../src/store'
-import Login from './components/Login'
+import LogInForm from './components/Login'
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
           <div>
             <Link to='/login' >Login</Link>
           </div>         
-          <Route path='/login' component={Login} />
+          <Route path='/login' component={LogInForm} />
         </header>
       </div>
     </Router>
