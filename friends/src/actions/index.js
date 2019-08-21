@@ -22,10 +22,12 @@ export const login = () => dispatch => {
     });
 }
 
-export const createPost = (postData) => dispatch => {
+export const createPost = (credentials) => dispatch => {
     dispatch({type: POST_LOGIN})
-    // console.log('action called on create ')
-    axios.post('http://localhost:5000/api/login', this.state.credentials)
+    axios.post('http://localhost:5000/api/login', credentials)
+    .then(res=>{
+        console.log('posted in API', res)
+    })
     .catch(error => {
         // unsuccessful 
         console.log("The api is currently down.", error.response);
