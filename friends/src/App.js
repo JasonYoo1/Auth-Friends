@@ -1,12 +1,15 @@
-
+import {Provider} from 'react-redux';
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
+
+import store from '../src/store'
 import Login from './components/Login'
 
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <div className="App">
         <header className="App-header">
@@ -17,6 +20,7 @@ function App() {
         </header>
       </div>
     </Router>
+    </Provider>
   );
 }
 

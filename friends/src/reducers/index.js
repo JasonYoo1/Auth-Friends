@@ -1,19 +1,12 @@
-import { LOGIN_START, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE
-} from '../actions/index'
+//The combineReducers helper function turns an object whose 
+//values are different reducing functions into a single reducing function you can pass to createStore.
+//https://redux.js.org/api/combinereducers
 
-const initialState = {
-  friends: [],
-  error: '',
-  errorStatusCode: null,
-  fetchingData: false,
-  isLoggingIn: false
-}
+import { combineReducers } from 'redux';
 
-const rootReducer = (state = initialState, action) => {
-  switch(action.type) {
-      default:
-          return state
-  }
-}
 
-export default rootReducer 
+import postReducer from './postReducer';
+
+export default combineReducers({
+  posts: postReducer
+});
