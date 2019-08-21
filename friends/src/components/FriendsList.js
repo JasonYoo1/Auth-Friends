@@ -2,19 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { login } from '../actions/index.js';
+import { createPost } from '../actions/index.js';
 import Friend from './Friends';
 
 const FriendsList = props => {
   return (
     <div className="friends-list-container">
-      <div className="friends-btn" onClick={props.login}>
-          <button className="friends-btn">Get Friends</button>
+      <div className="friends-btn" onClick={props.createPost}>
+          <button>Get Friends</button>
       </div>
       hello
-      <div className="friendscontainer">
-        {props.friends && 
-          props.friends.map(friend => <Friend key={friend.id} props={friend} />)}
+      <div className="friendscard">
+        {props.friends && props.friends.map(friend => 
+        <Friend key={friend.id} friend={friend} />)}
       </div>
     </div>
   );
@@ -22,12 +22,8 @@ const FriendsList = props => {
 
 const mapStateToProps = state => {
   return {
-    dataIsLoading: state.isLoadingSmurf,
     friends: state.friends
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(FriendsList);
+export default connect(mapStateToProps,{ createPost })(FriendsList);
