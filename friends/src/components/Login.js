@@ -3,7 +3,7 @@ import { Form, Field, withFormik } from 'formik';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
 
-import { createPost } from '../actions/index';
+import { login } from '../actions/index';
 
 const LoginForm = ({ props, touched, errors, values, handleSubmit}) => {
     const [userLogin, setUserLogin] = useState({});
@@ -36,7 +36,7 @@ const LoginForm = ({ props, touched, errors, values, handleSubmit}) => {
 const FormikLoginForm = withFormik({
     handleSubmit(values, { resetForm, props }) {
         console.log('inputs on submit', values, props)
-        props.createPost(values);
+        props.login(values);
         resetForm(); 
     },
     mapPropsToValues({ username, password }) {
@@ -61,4 +61,4 @@ const mapStateToProps = state => {
         };
     };
     
-export default connect( mapStateToProps,{ createPost })(FormikLoginForm);
+export default connect( mapStateToProps,{ login })(FormikLoginForm);

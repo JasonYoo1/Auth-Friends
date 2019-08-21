@@ -17,6 +17,7 @@ function App() {
         <header className="App-header">
           <div>
             <Link to='/login' >Login</Link><br/>
+            <Link to="/friends">Protected Page</Link>
           </div>         
           <Route path='/login' component={LogInForm} />
           <PrivateRoute exact path="/friends" component={FriendsList} />
